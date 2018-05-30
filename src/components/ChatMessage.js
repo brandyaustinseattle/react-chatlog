@@ -4,9 +4,10 @@ import Timestamp from './Timestamp';
 
 class ChatMessage extends Component {
   static propTypes = {
+    local: PropTypes.bool.isRequired,
     sender: PropTypes.string.isRequired,
     body: PropTypes.string.isRequired,
-    time: PropTypes.instanceOf(Timestamp).isRequired,
+    time: PropTypes.string.isRequired,
   }
 
   render() {
@@ -15,19 +16,28 @@ class ChatMessage extends Component {
     const body = this.props.body;
     const timestamp = <Timestamp time={this.props.time} />;
 
+    let className = 'chat-entry';
+      if (this.props.local) {
+        className += ' local';
+      } else {
+        className += ' remote';
+      }
+
     return (
-      <div>
-        <div className='sender'>
-          {sender}
-        </div>
+      <div className={className}>
+        <div className='entry-bubble'>
 
-        <div className='body'>
+          <div className='entry-name'>
+            {sender}
+          </div>
+
           {body}
-        </div>
 
-        <div className='timestamp'>
+          <div className='entry-time'>
+            {timestamp}
+          </div>
+
         </div>
-          {timestamp}
       </div>
     );
   }

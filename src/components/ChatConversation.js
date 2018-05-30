@@ -5,14 +5,27 @@ import ChatMessage from './ChatMessage';
 class ChatConversation extends Component {
   static propTypes = {
     chatMessages: PropTypes.array.isRequired,
-    one: PropTypes.string.isRequired,
-    two: PropTypes.string.isRequired,
+    participants: PropTypes.array.isRequired,
   }
+
 
   render() {
 
-    const chatMessages = this.props.chatMessages.map((message, key) => {
-      return <ChatMessage sender={message.sender} body={message.body} time={message.timestamp} key={key} />
+    const firstParticipant = this.props.participants[0];
+
+    const getFlag = (msge) => {
+      if (msge.sender !== firstParticipant) {
+        return false;
+      } else {
+        return true;
+      }
+    }
+
+    const chatMessages = this.props.chatMessages.map((msge, key) => {
+
+      let local = getFlag(msge);
+
+      return <ChatMessage local={local} sender={msge.sender} body={msge.body} time={msge.timeStamp} key={key} />
     });
 
     return (

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
 import chatMessages from './data/messages.json';
-
 import ChatConversation from './components/ChatConversation';
 
 class App extends Component {
@@ -11,10 +10,11 @@ class App extends Component {
 
     let unique = [...new Set(chatMessages.map(item => item.sender))];
 
-    const chatConversation = <ChatConversation chatMessages={chatMessages} />;
+    const chatConversation = <ChatConversation chatMessages={chatMessages} participants={unique} />;
 
     return (
       <div className="App">
+      
         <header className="App-header">
           <h1 className="App-title">Chat between {unique[0]} and {unique[1]}</h1>
         </header>
